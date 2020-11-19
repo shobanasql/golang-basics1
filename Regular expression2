@@ -1,0 +1,46 @@
+1.package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+	str1 := `http://www.suon.co.uk/product/1/7/3/`
+
+	re := regexp.MustCompile(`^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)`)
+	fmt.Printf("Pattern Type: %v\n", re.String()) 
+	fmt.Println(re.MatchString(str1)) 
+
+	submatchall := re.FindAllString(str1,-1)
+	for _, element := range submatchall {
+		fmt.Println(element)
+	}
+}
+$go run main.go
+Pattern Type: ^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)
+true
+http://www.suon.co.uk
+2.package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+	str1 := "sandhyakaali@gmail.com"
+	str2 := "kaalisandhya24@gmail_yahoo.com"
+	str3 := "suji@gmail-yahoo.com"
+	str4 := "rani@gmailyahoo"
+	str5 := "suraj56@gmail.yahoo"
+
+	re := regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+
+	fmt.Printf("Pattern: %v\n", re.String()) // print pattern	
+	fmt.Printf("\nEmail: %v :%v\n", str1, re.MatchString(str1))
+	fmt.Printf("Email: %v :%v\n", str2, re.MatchString(str2))
+	fmt.Printf("Email: %v :%v\n", str3, re.MatchString(str3))
+	fmt.Printf("Email: %v :%v\n", str4, re.MatchString(str4))
+	fmt.Printf("Email: %v :%v\n", str5, re.MatchString(str5))
+}
